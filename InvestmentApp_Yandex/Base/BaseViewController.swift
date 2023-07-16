@@ -63,9 +63,9 @@ extension BaseController {
     
 //    func setTitleForNavBarButton(buttonTitle: String, at position: NavBarPosition) {
 //        switch position {
-//        case .left:
+//        case .stocks:
 //            (navigationItem.leftBarButtonItem?.customView as? UIButton)?.setTitle(title, for: .normal)
-//        case .right:
+//        case .favs:
 //            (navigationItem.rightBarButtonItem?.customView as? UIButton)?.setTitle(title, for: .normal)
 //        }
 //        view.layoutIfNeeded() // чтобы хватало место кнопке и не появлялось троеточие
