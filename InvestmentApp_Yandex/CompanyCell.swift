@@ -136,8 +136,8 @@ private extension CollectionCell {
     }
     
     func configureAppearance() {
-        backgroundColor = .white
-//        layer.borderWidth = 1
+        backgroundColor = .red
+        layer.borderWidth = 1
 //        layer.borderColor = UIColor(named: "maingrey")?.cgColor
     }
 }

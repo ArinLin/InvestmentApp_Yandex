@@ -8,21 +8,22 @@
 import UIKit
 
 class MainViewController: BaseController {
-//    private let navBar = CustomNavBarView()
+//    private let searchController = UISearchController(searchResultsController: nil)
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout ()
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 8
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
-        view.backgroundColor = .clear
+        view.backgroundColor = .blue//.clear
 
         return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.backgroundColor = .green
         addViews()
         configure()
         layoutViews()
@@ -40,6 +41,16 @@ extension MainViewController {
         super.configure()
         // для того, чтобы спрятать верхнюю линию
         navigationController?.navigationBar.isHidden = true
+        
+//        //Настройка делегата UISearchController для обработки результатов поиска и других событий:
+//        searchController.searchResultsUpdater = self
+//        searchController.delegate = self
+//        // Настройка и дополнительные параметры UISearchController
+//        searchController.obscuresBackgroundDuringPresentation = false //searchController не позволяет взаимодействовать с отображаемым контентом, он его просто затемняет. Чтобы мы смогли работать с отфильтрованным контентом, как с основным -- присваиваем false
+//        searchController.searchBar.placeholder = "Find company or ticker"
+//        searchController.searchBar.searchBarStyle = .minimal
+//        // Установка searchController как navigationItem.searchController нашего view controller'а:
+//        navigationItem.searchController = searchController // тем самым отобразим строку поиска на навишейшн баре
         
         // регистрируем ячейку
         collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: CollectionCell.reuseID)
@@ -61,6 +72,7 @@ extension MainViewController {
 //            navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
 //            collectionView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
+//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -71,7 +83,7 @@ extension MainViewController {
 // для получения данных
 extension MainViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        0
+        3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -106,3 +118,14 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
+// МARK: Расширения для серч контроллера
+//extension MainViewController: UISearchResultsUpdating {
+//    func updateSearchResults(for searchController: UISearchController) {
+//        <#code#>
+//    }
+//}
+//
+//
+//extension MainViewController: UISearchControllerDelegate {
+//
+//}
