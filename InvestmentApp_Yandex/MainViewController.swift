@@ -72,7 +72,7 @@ extension MainViewController {
 //            navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
 //            collectionView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
-//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -83,11 +83,11 @@ extension MainViewController {
 // для получения данных
 extension MainViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
+        1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        40
+        16
     }
     
     // метод возвращает ячейки для нашей коллекции
@@ -106,7 +106,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width:collectionView.frame.width, height: 20) // ячейки такой же ширины, как и коллекция
+        CGSize(width: 328, height: 68)
+//        CGSize(width:collectionView.frame.width, height: 60) // ячейки такой же ширины, как и коллекция
     }
     
     // для настройки размера хедера

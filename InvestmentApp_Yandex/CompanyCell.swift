@@ -14,7 +14,8 @@ final class CollectionCell: UICollectionViewCell {
     private let logo: UIImageView = {
         let logo = UIImageView()
         logo.layer.cornerRadius = 15
-        logo.tintColor = .red
+        logo.backgroundColor = .black
+        logo.tintColor = .blue
         return logo
     }()
     
@@ -27,27 +28,28 @@ final class CollectionCell: UICollectionViewCell {
     private let companyStarStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 3
+        view.spacing = 0 //3
         return view
     }()
     
     private let companyNameStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 3
+        view.alignment = .fill
+        view.spacing = 0 //3
         return view
     }()
     
     private let title: UILabel = {
         let lable = UILabel()
-        lable.font = Resourses.Fonts.montserrat(withSize: 18)
+//        lable.font = Resourses.Fonts.montserrat(withSize: 18) // при указании размера падает
         lable.textColor = .black
         return lable
     }()
     
     private let subtitle: UILabel = {
         let label = UILabel()
-        label.font = Resourses.Fonts.montserrat(withSize: 12)
+//        label.font = Resourses.Fonts.montserrat(withSize: 12) // при указании размера падает
         label.textColor = .gray
         return label
     }()
@@ -56,13 +58,14 @@ final class CollectionCell: UICollectionViewCell {
         let view = UIStackView()
         view.axis = .vertical
         view.spacing = 3
+        view.alignment = .trailing
         return view
     }()
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "100"
-        label.font = Resourses.Fonts.montserrat(withSize: 18)
+        label.text = "100000"
+//        label.font = Resourses.Fonts.montserrat(withSize: 18) // при указании размера падает
         label.tintColor = .black
         return label
     }()
@@ -70,7 +73,7 @@ final class CollectionCell: UICollectionViewCell {
     private let pricePercentLabel: UILabel = {
         let label = UILabel()
         label.text = "5%"
-        label.font = Resourses.Fonts.montserrat(withSize: 12)
+//        label.font = Resourses.Fonts.montserrat(withSize: 12) // при указании размера падает
         label.tintColor = .green
         return label
     }()
@@ -102,35 +105,36 @@ private extension CollectionCell {
         addSubview(logo)
         addSubview(companyStarStackView)
         companyStarStackView.addArrangedSubview(star)
-        companyStarStackView.addArrangedSubview(title)
+        companyStarStackView.addArrangedSubview(title) // ПАДАЕТ
         addSubview(companyNameStackView)
         companyNameStackView.addArrangedSubview(companyStarStackView)
-        companyNameStackView.addArrangedSubview(subtitle)
+        companyNameStackView.addArrangedSubview(subtitle) // ПАДАЕТ
         addSubview(companyPriceStackView)
-        companyPriceStackView.addArrangedSubview(priceLabel)
-        companyPriceStackView.addArrangedSubview(pricePercentLabel)
+        companyPriceStackView.addArrangedSubview(priceLabel) // ПАДАЕТ
+        companyPriceStackView.addArrangedSubview(pricePercentLabel) // ПАДАЕТ
     }
     
     func constraintViews() {
         logo.translatesAutoresizingMaskIntoConstraints = false
         companyStarStackView.translatesAutoresizingMaskIntoConstraints = false
         companyNameStackView.translatesAutoresizingMaskIntoConstraints = false
+        companyPriceStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            logo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            logo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             logo.centerYAnchor.constraint(equalTo: centerYAnchor),
-            logo.heightAnchor.constraint(equalToConstant: 28),
-            logo.widthAnchor.constraint(equalTo: star.heightAnchor),
-            
-            companyNameStackView.leadingAnchor.constraint(equalTo: star.trailingAnchor, constant: 15),
+            logo.heightAnchor.constraint(equalToConstant: 52),
+            logo.widthAnchor.constraint(equalTo: logo.heightAnchor),
+
+            companyNameStackView.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: 8),
             companyNameStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             companyNameStackView.trailingAnchor.constraint(equalTo: companyPriceStackView.leadingAnchor, constant: -15),
-            
+
             companyPriceStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            companyPriceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            companyPriceStackView.heightAnchor.constraint(equalToConstant: 30),
-            companyPriceStackView.widthAnchor.constraint(equalToConstant: 32),
-            companyPriceStackView.leadingAnchor.constraint(equalTo: companyNameStackView.trailingAnchor)
+            companyPriceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+//            companyPriceStackView.heightAnchor.constraint(equalToConstant: 25),
+//            companyPriceStackView.widthAnchor.constraint(equalToConstant: 25),
+//            companyPriceStackView.leadingAnchor.constraint(equalTo: companyNameStackView.trailingAnchor)
         ])
         
     }
