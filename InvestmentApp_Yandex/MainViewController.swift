@@ -54,6 +54,10 @@ extension MainViewController {
         
         // регистрируем ячейку
         collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: CollectionCell.reuseID)
+        // регистрируем хедер через forSupplementaryViewOfKind
+        collectionView.register(CompanyHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: CompanyHeader.reuseID)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -72,7 +76,8 @@ extension MainViewController {
 //            navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
 //            collectionView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -96,8 +101,25 @@ extension MainViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCell.reuseID, for: indexPath) as? CollectionCell else { return UICollectionViewCell() }
         
         cell.configure(withTitle: "Yndx", subtitle: "Yandex, LLC", isFavourite: false)
+        cell.layer.cornerRadius = 16 
+        cell.layer.masksToBounds = true
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CompanyHeader.reuseID, for: indexPath) as? CompanyHeader else {
+              fatalError("Unable to dequeue HeaderView")
+          }
+          
+          // Конфигурируем кнопки
+          headerView.stocksButton.setTitle("Stoks", for: .normal)
+        headerView.stocksButton.addTarget(self, action: #selector(CompanyHeader.stocksButtonTapped), for: .touchUpInside)
+          
+          headerView.favsButton.setTitle("Favourites", for: .normal)
+          headerView.favsButton.addTarget(self, action: #selector(CompanyHeader.favsButtonTapped), for: .touchUpInside)
+          
+          return headerView
+      }
 }
  
 // для настройки внешнего вида
@@ -111,11 +133,12 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
     
     // для настройки размера хедера
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+        CGSize(width: 207, height: 72)
 //        CGSize(width:collectionView.frame.width, height: 32)
-//    }
+    }
 }
 
 

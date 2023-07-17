@@ -13,6 +13,7 @@
 		8411A5E22A628774006A3DAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8411A5E12A628774006A3DAA /* Assets.xcassets */; };
 		8411A5E52A628774006A3DAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8411A5E32A628774006A3DAA /* LaunchScreen.storyboard */; };
 		8411A5F02A628870006A3DAA /* Resourses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411A5EF2A628870006A3DAA /* Resourses.swift */; };
+		84C010482A65A02600F3E1F1 /* CompanyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C010472A65A02600F3E1F1 /* CompanyHeader.swift */; };
 		84EA16582A6289FF00351F5A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA16572A6289FF00351F5A /* BaseView.swift */; };
 		84EA165A2A628A1700351F5A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA16592A628A1700351F5A /* BaseViewController.swift */; };
 		84EA165D2A646B6100351F5A /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA165C2A646B6100351F5A /* CompanyCell.swift */; };
@@ -27,6 +28,7 @@
 		8411A5E42A628774006A3DAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8411A5E62A628774006A3DAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8411A5EF2A628870006A3DAA /* Resourses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resourses.swift; sourceTree = "<group>"; };
+		84C010472A65A02600F3E1F1 /* CompanyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyHeader.swift; sourceTree = "<group>"; };
 		84EA16572A6289FF00351F5A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		84EA16592A628A1700351F5A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		84EA165C2A646B6100351F5A /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				8411A5EC2A6287FC006A3DAA /* Application */,
 				8411A5DC2A628773006A3DAA /* MainViewController.swift */,
 				84EA165C2A646B6100351F5A /* CompanyCell.swift */,
+				84C010472A65A02600F3E1F1 /* CompanyHeader.swift */,
 				84EA165B2A62986A00351F5A /* Base */,
 				8411A5ED2A628826006A3DAA /* Helpers */,
 				8411A5E12A628774006A3DAA /* Assets.xcassets */,
@@ -184,6 +187,7 @@
 				84EA165D2A646B6100351F5A /* CompanyCell.swift in Sources */,
 				8411A5D92A628773006A3DAA /* AppDelegate.swift in Sources */,
 				8411A5DB2A628773006A3DAA /* SceneDelegate.swift in Sources */,
+				84C010482A65A02600F3E1F1 /* CompanyHeader.swift in Sources */,
 				84EA165A2A628A1700351F5A /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
