@@ -12,6 +12,9 @@ enum Resourses {
         static func montserrat(withSize: CGFloat) -> UIFont {
             UIFont(name: "Montserrat", size: withSize) ?? UIFont()
         }
+        static func helveticaRegular(with size: CGFloat) -> UIFont {
+            UIFont(name: "Helvetica", size: size) ?? UIFont()
+        }
     }
     
     enum Images {

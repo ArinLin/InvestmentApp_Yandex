@@ -6,9 +6,18 @@
 //
 
 import UIKit
+// изменение состояния для кнопки
+extension MainViewController {
+    public enum State {
+        case stocksIsActiv
+        case favsIsActiv
+    }
+}
 
 class MainViewController: BaseController {
 //    private let searchController = UISearchController(searchResultsController: nil)
+    
+    public var state = State.stocksIsActiv
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout ()
@@ -84,7 +93,8 @@ extension MainViewController {
         ])
     }
 }
-// МARK: Расширения для коллекции
+//MARK: - Расширения для коллекции
+
 // для получения данных
 extension MainViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -108,18 +118,18 @@ extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CompanyHeader.reuseID, for: indexPath) as? CompanyHeader else {
-              fatalError("Unable to dequeue HeaderView")
-          }
-          
-          // Конфигурируем кнопки
-          headerView.stocksButton.setTitle("Stoks", for: .normal)
+            fatalError("Unable to dequeue HeaderView")
+        }
+        
+        // Конфигурируем кнопки
+        headerView.stocksButton.setTitle("Stoks", for: .normal)
         headerView.stocksButton.addTarget(self, action: #selector(CompanyHeader.stocksButtonTapped), for: .touchUpInside)
-          
-          headerView.favsButton.setTitle("Favourites", for: .normal)
-          headerView.favsButton.addTarget(self, action: #selector(CompanyHeader.favsButtonTapped), for: .touchUpInside)
-          
-          return headerView
-      }
+        
+        headerView.favsButton.setTitle("Favourites", for: .normal)
+        headerView.favsButton.addTarget(self, action: #selector(CompanyHeader.favsButtonTapped), for: .touchUpInside)
+        
+        return headerView
+    }
 }
  
 // для настройки внешнего вида
@@ -141,8 +151,29 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: - Настройка кнопок
+//extension MainViewController {
+//    @IBAction func stocksButtonTapped() {
+//        if state == .favsIsActiv {
+//            state = .stocksIsActiv
+//            print("Кнопка стокс нажата")
+//        }
+//    }
+//
+//    @IBAction func favsButtonTapped() {
+//        if state == .stocksIsActiv {
+//            state = .favsIsActiv
+//            print("Кнопка любимое нажата")
+//        }
+//    }
+    
+//    func animateStateSetting() {
+//        let activeButton = state == .stocksIsActiv ? .stocksButton : favsButton
+//    }
+//}
 
-// МARK: Расширения для серч контроллера
+//MARK: - Расширения для серч контроллера
+
 //extension MainViewController: UISearchResultsUpdating {
 //    func updateSearchResults(for searchController: UISearchController) {
 //        <#code#>

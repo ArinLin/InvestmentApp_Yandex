@@ -42,14 +42,14 @@ final class CollectionCell: UICollectionViewCell {
     
     private let title: UILabel = {
         let lable = UILabel()
-//        lable.font = Resourses.Fonts.montserrat(withSize: 18) // при указании размера падает
+        lable.font = Resourses.Fonts.helveticaRegular(with: 18) // при указании размера падает
         lable.textColor = .black
         return lable
     }()
     
     private let subtitle: UILabel = {
         let label = UILabel()
-//        label.font = Resourses.Fonts.montserrat(withSize: 12) // при указании размера падает
+        label.font = Resourses.Fonts.helveticaRegular(with: 12) // при указании размера падает
         label.textColor = .gray
         return label
     }()
@@ -65,7 +65,8 @@ final class CollectionCell: UICollectionViewCell {
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.text = "100000"
-//        label.font = Resourses.Fonts.montserrat(withSize: 18) // при указании размера падает
+        label.font = Resourses.Fonts.helveticaRegular(with: 18)
+//        label.font = Resourses.Fonts.montserrat(withSize: 18) // при указании шрифта падает
         label.tintColor = .black
         return label
     }()
@@ -73,7 +74,7 @@ final class CollectionCell: UICollectionViewCell {
     private let pricePercentLabel: UILabel = {
         let label = UILabel()
         label.text = "5%"
-//        label.font = Resourses.Fonts.montserrat(withSize: 12) // при указании размера падает
+        label.font = Resourses.Fonts.helveticaRegular(with: 12) // при указании размера падает
         label.tintColor = .green
         return label
     }()
