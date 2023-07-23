@@ -22,12 +22,14 @@ final class CompanyCell: UICollectionViewCell {
     private let star: UIImageView = {
         let view = UIImageView()
         view.image = Resourses.Images.star
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
     private let companyStarStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
+        view.alignment = .leading
         view.spacing = 0 //3
         return view
     }()
@@ -35,7 +37,7 @@ final class CompanyCell: UICollectionViewCell {
     private let companyNameStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.alignment = .fill
+        view.alignment = .leading
         view.spacing = 0 //3
         return view
     }()
@@ -99,6 +101,32 @@ final class CompanyCell: UICollectionViewCell {
         
         star.image = isFavourite ? Resourses.Images.starFav : Resourses.Images.star
     }
+    
+    func configureStockCell(stock: StockData) {
+        
+        guard let urlString = stock.logo else {
+            logo.image = nil
+            return
+        }
+        
+        NetworkRequest.shared.requestData(urlStripg: urlString) { [weak self] result in
+            switch result {
+            case .success(let data):
+                let image = UIImage(data: data)
+                self?.logo.image = image
+            case .failure(let error):
+                self?.logo.image = nil
+                print("logo is invalid" + error.localizedDescription)
+            }
+        }
+        
+        //        if let data = try? Data(contentsOf: URL(string: urlString)!) {
+        //            logo.image = UIImage(data: data)
+        //        }
+        
+        title.text = stock.ticker
+        subtitle.text = stock.name
+    }
 }
 
 private extension CompanyCell {
@@ -106,13 +134,13 @@ private extension CompanyCell {
         addSubview(logo)
         addSubview(companyStarStackView)
         companyStarStackView.addArrangedSubview(star)
-        companyStarStackView.addArrangedSubview(title) // ПАДАЕТ
+        companyStarStackView.addArrangedSubview(title)
         addSubview(companyNameStackView)
         companyNameStackView.addArrangedSubview(companyStarStackView)
-        companyNameStackView.addArrangedSubview(subtitle) // ПАДАЕТ
+        companyNameStackView.addArrangedSubview(subtitle)
         addSubview(companyPriceStackView)
-        companyPriceStackView.addArrangedSubview(priceLabel) // ПАДАЕТ
-        companyPriceStackView.addArrangedSubview(pricePercentLabel) // ПАДАЕТ
+        companyPriceStackView.addArrangedSubview(priceLabel)
+        companyPriceStackView.addArrangedSubview(pricePercentLabel)
     }
     
     func constraintViews() {
@@ -128,11 +156,13 @@ private extension CompanyCell {
             logo.widthAnchor.constraint(equalTo: logo.heightAnchor),
 
             companyNameStackView.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: 8),
+            companyNameStackView.heightAnchor.constraint(equalToConstant: 40),
             companyNameStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             companyNameStackView.trailingAnchor.constraint(equalTo: companyPriceStackView.leadingAnchor, constant: -15),
 
             companyPriceStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             companyPriceStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            companyPriceStackView.heightAnchor.constraint(equalToConstant: 40),
 //            companyPriceStackView.heightAnchor.constraint(equalToConstant: 25),
 //            companyPriceStackView.widthAnchor.constraint(equalToConstant: 25),
 //            companyPriceStackView.leadingAnchor.constraint(equalTo: companyNameStackView.trailingAnchor)

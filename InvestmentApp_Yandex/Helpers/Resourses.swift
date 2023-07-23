@@ -23,8 +23,7 @@ enum Resourses {
     }
     
     enum Images {
-            static var loupe = UIImage(named: "loupe")?.resized(to: CGSize(width: 24, height: 24))
-            static var star = UIImage(named: "starGrey")?.resized(to: CGSize(width: 16, height: 18))
+            static var star = UIImage(named: "starGrey")?.resized(to: CGSize(width: 20, height: 20))
             static var starFav = UIImage(named: "starFav")?.resized(to: CGSize(width: 16, height: 18))
     }
 }

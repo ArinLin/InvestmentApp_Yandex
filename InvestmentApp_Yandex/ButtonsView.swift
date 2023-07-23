@@ -9,16 +9,24 @@ import UIKit
 
 extension ButtonsView {
     enum State {
-        case stocksIsActiv
-        case favsIsActiv
+        case active
+        case inactive
     }
 }
 
 class ButtonsView: UIView {
+    
+    var state = State.active {
+        didSet {
+            animateStateSetting()
+        }
+    }
+    
     let stocksButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Stoks", for: .normal)
         button.titleLabel?.font = Resourses.Fonts.helveticaRegular(with: 28)
+        button.addTarget(self, action: #selector(stocksButtonTapped), for: .touchUpInside)
         button.tintColor = .black
         button.alpha = 1
         return button
@@ -28,6 +36,7 @@ class ButtonsView: UIView {
         let button = UIButton(type: .system)
         button.setTitle("Favourite", for: .normal)
         button.titleLabel?.font = Resourses.Fonts.helveticaRegular(with: 18)
+        button.addTarget(self, action: #selector(favsButtonTapped), for: .touchUpInside)
         button.tintColor = .black
         button.alpha = 0.3
         return button
@@ -36,17 +45,11 @@ class ButtonsView: UIView {
     let stackButton: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 20
+        stack.spacing = 0
         stack.alignment = .bottom
         stack.distribution = .fillEqually
         return stack
     }()
-    
-    var state = State.stocksIsActiv {
-        didSet {
-            animateStateSetting()
-        }
-    }
     
     private let animatiomTimeInterval: TimeInterval = 0.3
     
@@ -79,16 +82,10 @@ private extension ButtonsView {
 //        favsButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stackButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             stackButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackButton.heightAnchor.constraint(equalToConstant: 32),
-            stackButton.widthAnchor.constraint(equalToConstant: 207),
-//            stocksButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-////            button1.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            stocksButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-//
-//            favsButton.leadingAnchor.constraint(equalTo: stocksButton.trailingAnchor, constant: 8),
-//            favsButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackButton.widthAnchor.constraint(equalToConstant: 250),
         ])
     }
     
@@ -98,34 +95,37 @@ private extension ButtonsView {
 //MARK: - Настройка кнопок
 extension ButtonsView {
     @objc public func stocksButtonTapped() {
-        if state == .favsIsActiv {
-            state = .stocksIsActiv
+        if state == .inactive {
+            state = .active
             print("Кнопка стокс нажата")
         }
     }
 
     @objc public func favsButtonTapped() {
-        if state == .stocksIsActiv {
-            state = .favsIsActiv
+        if state == .active {
+            state = .inactive
             print("Кнопка любимое нажата")
         }
     }
     
     func animateStateSetting() {
-        let activeButton = state == .stocksIsActiv ? favsButton : stocksButton
-        let inactiveButton = state == .favsIsActiv ? stocksButton : favsButton
-        
-        UIView.animate(withDuration: animatiomTimeInterval / 2) {
-            activeButton.alpha = 0.3
-            inactiveButton.alpha = 1
-        } completion: { _ in
-            UIView.animate(withDuration: self.animatiomTimeInterval / 2) {
-                activeButton.tintColor = .black
-                inactiveButton.alpha = 0.3
-//                activeButton.transform = CGAffineTransform(translationX: 100, y: .zero)
-//                inactiveButton.transform = CGAffineTransform(translationX: -100, y: .zero)
-            }
+        switch state {
+        case .active:
+            stocksButton.titleLabel?.font = Resourses.Fonts.helveticaRegular(with: 28)
+            stocksButton.alpha = 1
+        case .inactive:
+            stocksButton.titleLabel?.font = Resourses.Fonts.helveticaRegular(with: 18)
+            stocksButton.alpha = 0.3
         }
+        switch state {
+        case .active:
+            favsButton.titleLabel?.font = Resourses.Fonts.helveticaRegular(with: 18)
+            favsButton.alpha = 0.3
+        case .inactive:
+            favsButton.titleLabel?.font = Resourses.Fonts.helveticaRegular(with: 28)
+            favsButton.alpha = 1
+        }
+        
     }
 }
 

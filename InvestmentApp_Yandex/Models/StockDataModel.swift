@@ -7,26 +7,31 @@
 
 
 
-// https://finnhub.io/api/v1/stock/symbol?exchange=US&token=
+// https://finnhub.io/api/v1/stock/symbol?exchange=US&token=cinvd89r01qhd71bkhk0cinvd89r01qhd71bkhkg
 
 import Foundation
 
-struct StockData: Decodable {
+struct StockDataModel: Decodable {
     let description: String
     let displaySymbol: String
 }
 
-// https://finnhub.io/api/v1/stock/profile2?symbol=KSRPF&token=
+// https://finnhub.io/api/v1/stock/profile2?symbol=KSRPF&token=cinvd89r01qhd71bkhk0cinvd89r01qhd71bkhkg
 
-struct StockDataModel: Decodable {
-    let logo: String
+struct StockData: Decodable {
+    let logo: String?
     let name: String
     let ticker: String
 }
 
-// https://finnhub.io/api/v1/quote?symbol=AAPL&token=
+// искать по тикеру
+
+// https://finnhub.io/api/v1/quote?symbol=AAPL&token=cinvd89r01qhd71bkhk0cinvd89r01qhd71bkhkg
 
 struct StockPrice: Decodable {
     let c: Double // Current price
     let dp: Double // Percent change
+    // open price
 }
+
+// codingKeys 
