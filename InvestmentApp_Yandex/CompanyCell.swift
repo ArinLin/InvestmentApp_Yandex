@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class CollectionCell: UICollectionViewCell {
-    static let reuseID = "CollectionCell"
+final class CompanyCell: UICollectionViewCell {
+    static let reuseID = "CompanyCell"
     
     // TODO: проверить тип лого, который будет приходить с сервера UIImageView??
     private let logo: UIImageView = {
@@ -101,7 +101,7 @@ final class CollectionCell: UICollectionViewCell {
     }
 }
 
-private extension CollectionCell {
+private extension CompanyCell {
     func setupViews() {
         addSubview(logo)
         addSubview(companyStarStackView)

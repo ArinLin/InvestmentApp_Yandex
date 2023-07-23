@@ -1,24 +1,23 @@
 //
-//  CompanyHeader.swift
+//  ButtonsView.swift
 //  InvestmentApp_Yandex
 //
-//  Created by Arina on 17.07.2023.
+//  Created by Arina on 22.07.2023.
 //
 
 import UIKit
 
-extension CompanyHeader {
+extension ButtonsView {
     enum State {
         case stocksIsActiv
         case favsIsActiv
     }
 }
 
-open class CompanyHeader: UICollectionReusableView {
-    static let reuseID = "CompanyHeader"
-    
+class ButtonsView: UIView {
     let stocksButton: UIButton = {
         let button = UIButton(type: .system)
+        button.setTitle("Stoks", for: .normal)
         button.titleLabel?.font = Resourses.Fonts.helveticaRegular(with: 28)
         button.tintColor = .black
         button.alpha = 1
@@ -27,10 +26,20 @@ open class CompanyHeader: UICollectionReusableView {
     
     let favsButton: UIButton = {
         let button = UIButton(type: .system)
+        button.setTitle("Favourite", for: .normal)
         button.titleLabel?.font = Resourses.Fonts.helveticaRegular(with: 18)
         button.tintColor = .black
         button.alpha = 0.3
         return button
+    }()
+    
+    let stackButton: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 20
+        stack.alignment = .bottom
+        stack.distribution = .fillEqually
+        return stack
     }()
     
     var state = State.stocksIsActiv {
@@ -56,23 +65,30 @@ open class CompanyHeader: UICollectionReusableView {
     }
 }
 
-private extension CompanyHeader {
+
+private extension ButtonsView {
     func setupViews() {
-        addSubview(stocksButton)
-        addSubview(favsButton)
+        addSubview(stackButton)
+        stackButton.addArrangedSubview(stocksButton)
+        stackButton.addArrangedSubview(favsButton)
     }
     
     func constraintViews() {
-        stocksButton.translatesAutoresizingMaskIntoConstraints = false
-        favsButton.translatesAutoresizingMaskIntoConstraints = false
+        stackButton.translatesAutoresizingMaskIntoConstraints = false
+//        stocksButton.translatesAutoresizingMaskIntoConstraints = false
+//        favsButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stocksButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-//            button1.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stocksButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            favsButton.leadingAnchor.constraint(equalTo: stocksButton.trailingAnchor, constant: 8),
-            favsButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stackButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackButton.heightAnchor.constraint(equalToConstant: 32),
+            stackButton.widthAnchor.constraint(equalToConstant: 207),
+//            stocksButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+////            button1.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            stocksButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+//
+//            favsButton.leadingAnchor.constraint(equalTo: stocksButton.trailingAnchor, constant: 8),
+//            favsButton.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }
     
@@ -80,7 +96,7 @@ private extension CompanyHeader {
 }
 
 //MARK: - Настройка кнопок
-extension CompanyHeader {
+extension ButtonsView {
     @objc public func stocksButtonTapped() {
         if state == .favsIsActiv {
             state = .stocksIsActiv
@@ -112,3 +128,4 @@ extension CompanyHeader {
         }
     }
 }
+
