@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class CompanyCell: UICollectionViewCell {
     static let reuseID = "CompanyCell"
@@ -102,30 +103,33 @@ final class CompanyCell: UICollectionViewCell {
         star.image = isFavourite ? Resourses.Images.starFav : Resourses.Images.star
     }
     
-    func configureStockCell(stock: StockData) {
+    func configureStockCell(stock: StockDataCollection) {
         
-        guard let urlString = stock.logo else {
-            logo.image = nil
-            return
-        }
+//        guard let urlString = stock.logo else {
+//            logo.image = nil
+//            return
+//        }
         
-        NetworkRequest.shared.requestData(urlStripg: urlString) { [weak self] result in
-            switch result {
-            case .success(let data):
-                let image = UIImage(data: data)
-                self?.logo.image = image
-            case .failure(let error):
-                self?.logo.image = nil
-                print("logo is invalid" + error.localizedDescription)
-            }
-        }
+//        let url = URL(string: urlString)
+//        logo.kf.setImage(with: url)
         
-        //        if let data = try? Data(contentsOf: URL(string: urlString)!) {
-        //            logo.image = UIImage(data: data)
-        //        }
+//        NetworkRequest.shared.requestData(urlStripg: urlString) { [weak self] result in
+//            switch result {
+//            case .success(let data):
+//                let image = UIImage(data: data)
+//                self?.logo.image = image
+//            case .failure(let error):
+//                self?.logo.image = nil
+//                print("logo is invalid" + error.localizedDescription)
+//            }
+//        }
         
-        title.text = stock.ticker
-        subtitle.text = stock.name
+//                if let data = try? Data(contentsOf: URL(string: urlString)!) {
+//                    logo.image = UIImage(data: data)
+//                }
+        
+        title.text = stock.symbol
+        subtitle.text = stock.description
     }
 }
 

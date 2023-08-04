@@ -11,18 +11,18 @@
 
 import Foundation
 
-struct StockDataModel: Decodable {
-    let description: String
-    let displaySymbol: String
+struct StockDataCollection: Decodable {
+    let description: String // длинное название
+    let symbol: String // короткое название или тикер
 }
 
 // https://finnhub.io/api/v1/stock/profile2?symbol=KSRPF&token=cinvd89r01qhd71bkhk0cinvd89r01qhd71bkhkg
 
-struct StockData: Decodable {
-    let logo: String?
-    let name: String
-    let ticker: String
-}
+//struct StockData: Decodable {
+//    let logo: String?
+//    let name: String
+//    let ticker: String
+//}
 
 // искать по тикеру
 

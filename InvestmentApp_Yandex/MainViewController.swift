@@ -22,7 +22,8 @@ class MainViewController: UIViewController {
         return view
     }()
     
-    var stocks = [StockData]()
+    var stocks = [StockDataCollection]()
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +38,15 @@ class MainViewController: UIViewController {
     }
     
     private func fetchStocks(stockName: String) {
-        let urlString = "https://finnhub.io/api/v1/stock/profile2?symbol=\(stockName)&token=cinvd89r01qhd71bkhk0cinvd89r01qhd71bkhkg"
+//        let urlString = "https://finnhub.io/api/v1/stock/profile2?symbol=\(stockName)&token=cinvd89r01qhd71bkhk0cinvd89r01qhd71bkhkg"
         
-        NetworkDataFetch.shared.fetchStock(urlString: urlString) { [weak self] stocks, error in
+        let urlString = "https://finnhub.io/api/v1/stock/symbol?exchange=US&token=cinvd89r01qhd71bkhk0cinvd89r01qhd71bkhkg"
+        
+        NetworkDataFetch.shared.fetchStock(urlString: urlString) { [weak self] allStocks, error in
             if error == nil {
-                guard let stocks = stocks else { return }
+                guard let stocks = allStocks else { return }
                 
-                self?.stocks = [stocks]
+                self?.stocks = stocks
                 print(self?.stocks)
                 self?.collectionView.reloadData()
             } else {
@@ -124,7 +127,7 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         stocks.count
     }
-    
+    // дебаундс?? таймер когда пользователь вводит
     // метод возвращает ячейки для нашей коллекции
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -162,14 +165,37 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            print(searchText)
+        print(searchText)
         
         let text = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         
         if text != "" {
-            self.fetchStocks(stockName: text!)
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+                self?.fetchStocks(stockName: text!)
             }
         }
+        
+//        if text != "" {
+//            self.fetchStocks(stockName: text!)
+//        } else {
+//            // If the search text is empty, show all stocks (if required).
+//            self.fetchAllStocks()
+//        }
+        
+        // Check if the search text is empty
+                if searchText.isEmpty {
+                    // If the search text is empty, show all stocks
+                    self.stocks = [] // Set this to your full array of stocks or fetch all stocks from the API again if needed.
+                    self.collectionView.reloadData()
+                } else {
+                    // Perform the search operation with the entered text
+                    let text = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                    if let text = text {
+                        self.fetchStocks(stockName: text)
+                    }
+                }
+    }
 }
 
 //extension MainViewController: UISearchResultsUpdating {
